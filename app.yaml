@@ -1,3 +1,16 @@
-# for Google Cloud Platform
+# Configuration for Google Cloud Platform
 runtime: nodejs
 env: flex
+
+instance_class: B1
+
+manual_scaling:
+  instances: 1
+
+resources:
+ cpu: 0.01
+ memory_gb: 0.5
+ disk_size_gb: 0.1
+
+health_check:
+ enable_health_check: False

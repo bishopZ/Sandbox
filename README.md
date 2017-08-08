@@ -47,7 +47,7 @@ Starter library for Node.js applications on Google Cloud Platform using a specia
 1.  Create a [Google Cloud Platform project](https://console.cloud.google.com).
 1.  Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
 
-    * After downloading the SDK, initialize it:
+1.  After downloading the SDK, initialize it:
 
         gcloud init
 
