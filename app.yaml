@@ -1,0 +1,3 @@
+# for Google Cloud Platform
+runtime: nodejs
+env: flex
