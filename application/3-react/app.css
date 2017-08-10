@@ -1,0 +1,7 @@
+
+body { text-align: center; }
+h1 { font-size: calc(2.2vw + 18px); line-height: 1.3em; }
+h2 { font-size: calc(1.8vw + 16px); letter-spacing: 2; height: 24vw; }
+
+.choice { border: 1px solid #d0d0d0; margin: 10px; background-color:#efefef; width: 12vw; padding: 2vw; display: inline-block;}
+.choice-container { width: 100%; text-align: center; }

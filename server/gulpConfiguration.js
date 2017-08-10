@@ -43,9 +43,9 @@ const pages = [
   },{
     path: '3-react',
     build: builds.react,
-    data: { msg: "Hello from Gulp Config!" }, // for ejs templates
-    entryPoints: [ 'sources/index.js' ],
-    sass: libs.bootstrapcss
+    entryPoints: [ 'js/app.js' ],
+    sass: libs.bootstrapcss,
+    fonts: libs.fontawesome
   }
 ];
 

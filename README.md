@@ -6,7 +6,16 @@ Starter library for Node.js applications on Google Cloud Platform using a specia
 
 ## File Notes
 
-"Procfile" is for Heroku. "app.yaml" is for GCP.
+"Procfile" is for Heroku. "app.yaml" is for GCP. All the magic happens in "/server/gulpConfiguration.js"
+
+
+## Examples
+
+### Example 1 - Simple ES6 build with bundled libraries instead of imports
+
+### Example 2 - Imports ES6 build with support for import statements
+
+### Example 3 - An examples of React, Redux, and React Router v4
 
 
 ## Simple instructions for Heroku

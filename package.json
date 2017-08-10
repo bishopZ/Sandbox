@@ -19,7 +19,8 @@
   "contributors": [],
   "license": "MIT",
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "body-parser": "^1.17.2"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -30,6 +31,7 @@
     "babelify": "^7.3.0",
     "browserify": "^14.4.0",
     "connect-livereload": "^0.6.0",
+    "connected-react-router": "^4.2.3",
     "del": "^3.0.0",
     "eslint-plugin-react": "^7.1.0",
     "font-awesome": "^4.7.0",
@@ -44,10 +46,15 @@
     "gulp-plumber": "^1.1.0",
     "gulp-sass": "^2.0.4",
     "gulp-uglify": "^3.0.0",
+    "history": "^4.6.3",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
-    "react": "15.6.1",
-    "react-dom": "15.6.1",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.1.2",
+    "redux": "^3.7.2",
     "run-sequence": "^2.1.0",
     "vinyl-source-stream": "^1.1.0"
   },
