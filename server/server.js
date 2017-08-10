@@ -24,6 +24,7 @@ if (isDev) {
 // Production Server Options
 
 // static paths for the rest
+server.get('/', express.static('./distribution/1-simple'));
 server.use(express.static('./distribution'));
 
 // Create the server

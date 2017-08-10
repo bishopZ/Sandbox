@@ -25,9 +25,6 @@ const builds = {
 
 const pages = [
   {
-    path: './',
-    build: builds.html
-  },{
     path: '1-simple',
     build: builds.simple,
     data: { msg: "Hello from Gulp Config!" }, // for ejs templates
