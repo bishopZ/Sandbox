@@ -6,8 +6,6 @@ const http = require('http');
 
 const server = express();
 
-var serverPort = process.env.PORT || 8080;
-
 // Development Server Options
 
 const isDev = process.env.NODE_ENV !== 'production';
