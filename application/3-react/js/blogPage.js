@@ -2,11 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-var HomePage = ({ choices, onMakeChoice }) => {
+var BlogPage = ({ choices, onMakeChoice }) => {
 
   return (
     <div className="render-group">
-      <h1>Home Page</h1>
+      <h1>Blog Page</h1>
       <div className="choice-container">
         <button onClick={onMakeChoice}>Make a Choice</button>
       </div>
@@ -15,9 +15,9 @@ var HomePage = ({ choices, onMakeChoice }) => {
   );
 };
 
-HomePage.propTypes = {
+BlogPage.propTypes = {
   onMakeChoice: PropTypes.func.isRequired,
   choices: PropTypes.array.isRequired
 };
 
-module.exports = HomePage;
+module.exports = BlogPage;
