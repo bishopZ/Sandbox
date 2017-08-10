@@ -37,7 +37,7 @@ var sourcePatterns = {
   html: '/**/*.html' ,
   images: '/**/*.{gif,jpg,jpeg,png}',
   fonts: '/**/*.{eot,svg,ttf,woff,woff2}',
-  sass: '/**/*.scss',
+  sass: '/**/*.{scss,sass,css}',
   js: '/**/*.{js,jsx}'
 };
 
