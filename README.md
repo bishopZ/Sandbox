@@ -1,7 +1,7 @@
 
 # Sandbox
 
-Starter library for Node.js applications on Google Cloud Platform using a special Gulp/Babel build system.
+Starter library for Node.js applications using a special Gulp/Babel build system.
 
 
 ## Actively Seeking Beta Tester and Contributors
@@ -27,32 +27,59 @@ Two npm commands are available `npm run dev` will run the development environmen
 
 ### Gulp and Webpack
 
-With this build system we opted to use Gulp instead of Webpack. Technically they do different things. Gulp is a task runner that can run multiple build systems such as Babel, Webpack and Browserify. This starter package does not yet include an example of running Webpack with Gulp, but there are plenty of those available elsewhere.
+With this build system we opted to use Gulp instead of Webpack. Technically, they do different things. Gulp is a task runner that can run multiple build systems such as Babel, Webpack and Browserify. This starter package does not yet include an example of running Webpack with Gulp, but there are plenty of those available elsewhere.
 
-I like Webpack, but it can be very restrictive and the documentation is terrible. Gulp also comes with some disadvantages. At this point in development, the included Gulp environment will stop running frequently and need to be restarted. Also, becuase of the way the `watch` tasks are setup, the development environment needs to be restarted whenever a new file is added to the application.
+I like Webpack, but it can be very restrictive and the documentation is terrible. Gulp also comes with some disadvantages. At this point in development, the included Gulp environment will frequently stop running and need to be restarted. Also, becuase of the way the `watch` tasks are setup, the development environment needs to be restarted whenever a new file is added to the application.
 
 In future versions we hope to combine the best of both the Webpack and Gulp worlds.
 
 
 ## Example Projects
 
-Currently only three example projects are included. Project 1 is currently set as the default project. This can be changed in the `/server/server.js` file.
+Three example projects are included. Project 1 is set as the default project that is shown when the site's root directory is requested (http://localhost:8080/). This can be changed in the `/server/server.js` file.
 
-### Example 1 - Simple ES6 build 
+Each example has a corrisponding object in the `server/gulpConfiguration.js` file. To create a new project folder, create the folder in the `application` folder add a build task to this `gulpConfiguration.js`.
 
-with bundled libraries instead of imports
+### Example 1: Simple ES6 with EJS and Sass 
 
-### Example 2 - Imports ES6 build 
+ES6 build with Babel, which does not support `import` statements. Indead librariesare bundled in with Gulp.
 
-with support for import statements
+### Example 2: ES6 with Imports
 
-### Example 3 - React
+Full ES6 build with support for import statements.
 
-An examples of React, Redux, and React Router v4
+### Example 3: React
+
+An examples of React, Redux, and React Router v4.
 
 
 
-## Simple instructions for Heroku
+## Deploy to Google Cloud Platform
+
+1.  Install [Node.js](https://nodejs.org/en/).
+1.  Install [git](https://git-scm.com/).
+1.  Create a [Google Cloud Platform project](https://console.cloud.google.com).
+1.  Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
+
+1.  After downloading the SDK, initialize it:
+
+        gcloud init
+        git clone https://github.com/...
+        cd ...
+        npm install
+        npm run dev
+
+1.  View the app at [http://localhost:8080](http://localhost:8080).
+1.  Stop the app by pressing `Ctrl+C`.
+1.  Deploy the app:
+
+        gcloud app deploy
+
+1.  View the deployed app at [https://YOUR_PROJECT_ID.appspot.com](https://YOUR_PROJECT_ID.appspot.com).
+
+
+
+## Deploy to Heroku
 
 1.  Install [git](https://git-scm.com/).
 1.  Install [Heroku Toolbelt](...).
@@ -75,30 +102,6 @@ An examples of React, Redux, and React Router v4
 
         heroku open
 
-
-
-## Simple instructions for GCP
-
-1.  Install [Node.js](https://nodejs.org/en/).
-1.  Install [git](https://git-scm.com/).
-1.  Create a [Google Cloud Platform project](https://console.cloud.google.com).
-1.  Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
-
-1.  After downloading the SDK, initialize it:
-
-        gcloud init
-        git clone https://github.com/...
-        cd ...
-        npm install
-        npm run dev
-
-1.  View the app at [http://localhost:8080](http://localhost:8080).
-1.  Stop the app by pressing `Ctrl+C`.
-1.  Deploy the app:
-
-        gcloud app deploy
-
-1.  View the deployed app at [https://YOUR_PROJECT_ID.appspot.com](https://YOUR_PROJECT_ID.appspot.com).
 
 
 
