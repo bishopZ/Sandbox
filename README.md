@@ -4,18 +4,52 @@
 Starter library for Node.js applications on Google Cloud Platform using a special Gulp/Babel build system.
 
 
+## Actively Seeking Beta Tester and Contributors
+
+Try it out and let us know where you run into confusion or problems. Contribute to the Issues page, or hit us up to become a code contributor. There are many small improvements you could make that would get your name added to the project!
+
+
 ## File Notes
 
-"Procfile" is for Heroku. "app.yaml" is for GCP. All the magic happens in "/server/gulpConfiguration.js"
+There are a number of configutation files in the root director.
+
+- "Procfile" is for Heroku. 
+- "app.yaml" is for GCP. 
+
+The build system is divided into an `application` folder for all your development files, and a `distribution` folder that gets deleted and rebuilt every time you run the development environment.
+
+There is also a `server` folder which holds files for the gulp configuration and Node.js server. All the magic happens in "/server/gulpConfiguration.js"
 
 
-## Examples
+## Running the Development Environment
 
-### Example 1 - Simple ES6 build with bundled libraries instead of imports
+Two npm commands are available `npm run dev` will run the development environment, or `npm start` to run the server environment. On your local machine, both will bind to port 8080. This can be changed in the `server/server.js` file.
 
-### Example 2 - Imports ES6 build with support for import statements
+### Gulp and Webpack
 
-### Example 3 - An examples of React, Redux, and React Router v4
+With this build system we opted to use Gulp instead of Webpack. Technically they do different things. Gulp is a task runner that can run multiple build systems such as Babel, Webpack and Browserify. This starter package does not yet include an example of running Webpack with Gulp, but there are plenty of those available elsewhere.
+
+I like Webpack, but it can be very restrictive and the documentation is terrible. Gulp also comes with some disadvantages. At this point in development, the included Gulp environment will stop running frequently and need to be restarted. Also, becuase of the way the `watch` tasks are setup, the development environment needs to be restarted whenever a new file is added to the application.
+
+In future versions we hope to combine the best of both the Webpack and Gulp worlds.
+
+
+## Example Projects
+
+Currently only three example projects are included. Project 1 is currently set as the default project. This can be changed in the `/server/server.js` file.
+
+### Example 1 - Simple ES6 build 
+
+with bundled libraries instead of imports
+
+### Example 2 - Imports ES6 build 
+
+with support for import statements
+
+### Example 3 - React
+
+An examples of React, Redux, and React Router v4
+
 
 
 ## Simple instructions for Heroku
@@ -26,13 +60,7 @@ Starter library for Node.js applications on Google Cloud Platform using a specia
 
         git init
         heroku create
-
-1.  Install dependencies using NPM:
-
         npm install
-
-1.  Run the development environment:
-
         npm run dev
 
 1.  View the app at [http://localhost:8080](http://localhost:8080).
@@ -59,21 +87,9 @@ Starter library for Node.js applications on Google Cloud Platform using a specia
 1.  After downloading the SDK, initialize it:
 
         gcloud init
-
-1.  Clone the repository:
-
         git clone https://github.com/...
-
-1.  Change directory:
-
         cd ...
-
-1.  Install dependencies using NPM:
-
         npm install
-
-1.  Run the development environment:
-
         npm run dev
 
 1.  View the app at [http://localhost:8080](http://localhost:8080).
@@ -83,6 +99,12 @@ Starter library for Node.js applications on Google Cloud Platform using a specia
         gcloud app deploy
 
 1.  View the deployed app at [https://YOUR_PROJECT_ID.appspot.com](https://YOUR_PROJECT_ID.appspot.com).
+
+
+
+## Contributors
+
+- Bishop Zareh http://bishopz.com
 
 
 
