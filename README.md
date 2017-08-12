@@ -6,7 +6,7 @@ Starter library for Node.js applications using a special Gulp/Babel build system
 
 ## Actively Seeking Beta Tester and Contributors
 
-Try it out and let us know where you run into confusion or problems. Contribute to the Issues page, or hit us up to become a code contributor. There are many small improvements you could make that would get your name added to the project!
+Try it out and let us know where you run into confusion or problems. Contribute to the [Issues Page](https://github.com/bishopZ/Sandbox/issues), or hit us up to become a code contributor. There are many small improvements you could make that would get your name added to the project!
 
 
 ## File Notes
@@ -30,11 +30,11 @@ Two npm commands are available `npm run dev` will run the development environmen
 
 You must run the development environment to create the distribution files prior to deploying. The application does not build the distribution files on server startup. This creates an extra deploy step, but significantly reduces the servercode footprint.
 
-### Gulp and Webpack
+### [Gulp](https://gulpjs.com/) and [Webpack](https://webpack.github.io/)
 
 With this build system we opted to use Gulp instead of Webpack. [Technically, they do different things](https://stackoverflow.com/questions/33561272/task-runners-gulp-grunt-etc-and-bundlers-webpack-browserify-why-use-toge). Gulp is a task runner that can run multiple build systems such as Babel, Webpack and Browserify. This starter package does not yet include an example of running Webpack with Gulp, but there are [plenty of those available elsewhere](https://webpack.github.io/docs/usage-with-gulp.html).
 
-We like Webpack, but it can be very restrictive and the documentation is [frequently out of date](https://stackoverflow.com/questions/38709525/webpack-imports-loader-not-working-cannot-find-module). Gulp also comes with some disadvantages. At this point in development, the included Gulp environment will frequently stop running and need to be restarted. Also, becuase of the way the `watch` tasks are setup, the development environment needs to be restarted whenever a new file is added to the application.
+We like Webpack, but it can be very restrictive and the documentation is [frequently out of date](https://github.com/webpack/webpack/issues/2101). On the other hand, Gulp also comes with some disadvantages. At this point in development, the included Gulp environment will frequently stop running and need to be restarted. Also, becuase of the way the `watch` tasks are setup, the development environment needs to be restarted whenever a new file is added to the application.
 
 In future versions we hope to combine the best of both the Webpack and Gulp worlds.
 
@@ -59,7 +59,7 @@ An examples of React, Redux, and React Router v4.
 
 
 
-## Deploy to Google Cloud Platform
+## Deploy to [Google Cloud Platform](https://cloud.google.com/)
 
 1.  Install [Node.js](https://nodejs.org/en/).
 1.  Install [git](https://git-scm.com/).
@@ -69,8 +69,8 @@ An examples of React, Redux, and React Router v4.
 1.  After downloading the SDK, initialize it:
 
         gcloud init
-        git clone https://github.com/...
-        cd ...
+        git clone https://github.com/bishopZ/Sandbox
+        cd Sandbox
         npm install
         npm run dev
 
@@ -84,13 +84,14 @@ An examples of React, Redux, and React Router v4.
 
 
 
-## Deploy to Heroku
+## Deploy to [Heroku](https://www.heroku.com/)
 
 1.  Install [git](https://git-scm.com/).
-1.  Install [Heroku Toolbelt](...).
+1.  Install [Heroku Toolbelt](https://devcenter.heroku.com/articles/heroku-cli).
 1.  Initialize the Heroku app:
 
-        git init
+        git clone https://github.com/bishopZ/Sandbox/
+        cd Sandbox
         heroku create
         npm install
         npm run dev
@@ -112,7 +113,7 @@ An examples of React, Redux, and React Router v4.
 
 ## Contributors
 
-- Bishop Zareh http://bishopz.com
+- [Bishop Zareh](http://bishopz.com) http://bishopz.com
 
 
 
