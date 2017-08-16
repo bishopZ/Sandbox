@@ -1,7 +1,7 @@
 
 # Sandbox
 
-Starter library for Node.js applications using a special Gulp/Babel build system.
+Starter library for Node.js applications using a flexible Gulp/Babel build system.
 
 
 ## Actively Seeking Beta Tester and Contributors
@@ -16,8 +16,8 @@ There are a number of configutation files in the root director.
 - `package.json` is the main configuration file
 - `Procfile` sets the Heroku startup script
 - `app.yaml` configures a basic GCP deploy
-- `gulpfile.js` is the "special" Gulp build system
-- `.eslintrc` confifures what ESLint reports on
+- `gulpfile.js` is the flexible Gulp build system
+- `.eslintrc` configures what ESLint reports on
 
 The build system is divided into an `application` folder for all your development files, and a `distribution` folder that gets deleted and rebuilt every time you run the development environment.
 
