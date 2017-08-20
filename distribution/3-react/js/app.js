@@ -5,56 +5,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var AboutPage = function AboutPage(_ref) {
-  var choices = _ref.choices,
-      onMakeChoice = _ref.onMakeChoice;
-
-
-  return _react2.default.createElement(
-    'div',
-    { className: 'render-group' },
-    _react2.default.createElement(
-      'h1',
-      null,
-      'About Page'
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'choice-container' },
-      _react2.default.createElement(
-        'button',
-        { onClick: onMakeChoice },
-        'Make a Choice'
-      )
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'results' },
-      choices.length
-    )
-  );
-};
-
-AboutPage.propTypes = {
-  onMakeChoice: _propTypes2.default.func.isRequired,
-  choices: _propTypes2.default.array.isRequired
-};
-
-module.exports = AboutPage;
-
-},{"prop-types":69,"react":265}],2:[function(require,module,exports){
-'use strict';
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
 var _reactDom = require('react-dom');
 
 var _reactRouterDom = require('react-router-dom');
@@ -65,14 +15,42 @@ var _connectedReactRouter = require('connected-react-router');
 
 var _store = require('./database/store.js');
 
-var _navbar = require('./navbar.js');
+var _actions = require('./database/actions.js');
+
+var Actions = _interopRequireWildcard(_actions);
+
+var _navbar = require('./components/navbar.js');
 
 var _navbar2 = _interopRequireDefault(_navbar);
 
-var _container = require('./database/container.js');
+var _home = require('./pages/home.js');
+
+var _home2 = _interopRequireDefault(_home);
+
+var _about = require('./pages/about.js');
+
+var _about2 = _interopRequireDefault(_about);
+
+var _blog = require('./pages/blog.js');
+
+var _blog2 = _interopRequireDefault(_blog);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// simple way to create pass-along redux containers
+var defaultMapStateToProps = function defaultMapStateToProps(a) {
+  return a;
+}; // give them everything
+var defaultMapDispatchToProps = Actions; // give them everything
+var container = function container(Page) {
+  return (0, _reactRedux.connect)(defaultMapStateToProps, // which properties are sent to the page
+  defaultMapDispatchToProps // which functions are sent to the page
+  )(Page);
+};
+
+// render the router
 (0, _reactDom.render)(_react2.default.createElement(
   _reactRedux.Provider,
   { store: _store.store },
@@ -86,226 +64,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
         'div',
         null,
         _react2.default.createElement(_navbar2.default, null),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _container.HomeContainer }),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/about', component: _container.AboutContainer }),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/blog', component: _container.BlogContainer })
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: container(_home2.default) }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/about', component: container(_about2.default) }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/blog', component: container(_blog2.default) })
       )
     )
   )
 ), document.getElementById('react-root'));
 
+// it has begun
 console.log('%c App Started', 'color:green');
 
-},{"./database/container.js":5,"./database/store.js":7,"./navbar.js":9,"connected-react-router":13,"react":265,"react-dom":71,"react-redux":207,"react-router-dom":225}],3:[function(require,module,exports){
-'use strict';
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var BlogPage = function BlogPage(_ref) {
-  var choices = _ref.choices,
-      onMakeChoice = _ref.onMakeChoice;
-
-
-  return _react2.default.createElement(
-    'div',
-    { className: 'render-group' },
-    _react2.default.createElement(
-      'h1',
-      null,
-      'Blog Page'
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'choice-container' },
-      _react2.default.createElement(
-        'button',
-        { onClick: onMakeChoice },
-        'Make a Choice'
-      )
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'results' },
-      choices.length
-    )
-  );
-};
-
-BlogPage.propTypes = {
-  onMakeChoice: _propTypes2.default.func.isRequired,
-  choices: _propTypes2.default.array.isRequired
-};
-
-module.exports = BlogPage;
-
-},{"prop-types":69,"react":265}],4:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var nextId = 0;
-
-var makeChoice = exports.makeChoice = function makeChoice() {
-  return {
-    type: 'MAKE_CHOICE',
-    id: nextId++
-  };
-};
-
-},{}],5:[function(require,module,exports){
-'use strict';
-
-var _reactRedux = require('react-redux');
-
-var _actions = require('./actions.js');
-
-var _homePage = require('../homePage.js');
-
-var _homePage2 = _interopRequireDefault(_homePage);
-
-var _aboutPage = require('../aboutPage.js');
-
-var _aboutPage2 = _interopRequireDefault(_aboutPage);
-
-var _blogPage = require('../blogPage.js');
-
-var _blogPage2 = _interopRequireDefault(_blogPage);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var getChoices = function getChoices(choices) {
-  console.log(1);
-  return choices;
-};
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    choices: getChoices(state.choices)
-  };
-};
-
-var mapDispatchToProps = {
-  onMakeChoice: _actions.makeChoice
-};
-
-var HomeContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_homePage2.default);
-
-var AboutContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_aboutPage2.default);
-
-var BlogContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_blogPage2.default);
-
-module.exports = { HomeContainer: HomeContainer, AboutContainer: AboutContainer, BlogContainer: BlogContainer };
-
-},{"../aboutPage.js":1,"../blogPage.js":3,"../homePage.js":8,"./actions.js":4,"react-redux":207}],6:[function(require,module,exports){
-'use strict';
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var choiceReducer = function choiceReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case 'MAKE_CHOICE':
-      return [].concat(_toConsumableArray(state), [{ id: action.id }]); // or whatever...
-    default:
-      return state;
-  }
-};
-
-module.exports = { choiceReducer: choiceReducer };
-
-},{}],7:[function(require,module,exports){
-'use strict';
-
-var _history = require('history');
-
-var _redux = require('redux');
-
-var _connectedReactRouter = require('connected-react-router');
-
-var _reducers = require('./reducers.js');
-
-var history = (0, _history.createBrowserHistory)();
-
-var reducers = (0, _redux.combineReducers)({
-  choices: _reducers.choiceReducer
-  //, ...more reducers
-});
-
-var connectedReducers = (0, _connectedReactRouter.connectRouter)(history)(reducers);
-
-var middleware = (0, _redux.compose)((0, _redux.applyMiddleware)((0, _connectedReactRouter.routerMiddleware)(history) // for dispatching history actions
-//, ... other middlewares ...
-));
-
-var initialState = { choices: [] };
-
-var store = (0, _redux.createStore)(connectedReducers, initialState, middleware);
-
-module.exports = { history: history, store: store };
-
-},{"./reducers.js":6,"connected-react-router":13,"history":50,"redux":271}],8:[function(require,module,exports){
-'use strict';
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var HomePage = function HomePage(_ref) {
-  var choices = _ref.choices,
-      onMakeChoice = _ref.onMakeChoice;
-
-
-  return _react2.default.createElement(
-    'div',
-    { className: 'render-group' },
-    _react2.default.createElement(
-      'h1',
-      null,
-      'Home Page'
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'choice-container' },
-      _react2.default.createElement(
-        'button',
-        { onClick: onMakeChoice },
-        'Make a Choice'
-      )
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'results' },
-      choices.length
-    )
-  );
-};
-
-HomePage.propTypes = {
-  onMakeChoice: _propTypes2.default.func.isRequired,
-  choices: _propTypes2.default.array.isRequired
-};
-
-module.exports = HomePage;
-
-},{"prop-types":69,"react":265}],9:[function(require,module,exports){
+},{"./components/navbar.js":2,"./database/actions.js":3,"./database/store.js":6,"./pages/about.js":7,"./pages/blog.js":8,"./pages/home.js":9,"connected-react-router":13,"react":265,"react-dom":71,"react-redux":207,"react-router-dom":225}],2:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -357,7 +127,367 @@ var Navbar = function Navbar() {
 
 module.exports = Navbar;
 
-},{"react":265,"react-router-dom":225}],10:[function(require,module,exports){
+},{"react":265,"react-router-dom":225}],3:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+// Example of storing data in the status property
+var nextId = 0;
+
+var MAKE_CHOICE = exports.MAKE_CHOICE = 'MAKE_CHOICE';
+var onMakeChoice = exports.onMakeChoice = function onMakeChoice() {
+  return {
+    type: MAKE_CHOICE,
+    id: nextId++
+  };
+};
+
+// Simulate requesting API data
+var FakeData = [{}, {}, {}];
+
+var DATA_REQUESTED = exports.DATA_REQUESTED = 'DATA_REQUESTED';
+var DATA_RECIEVED = exports.DATA_RECIEVED = 'DATA_RECIEVED';
+var onGetData = exports.onGetData = function onGetData() {
+  return function (dispatch) {
+    dispatch({
+      type: DATA_REQUESTED
+    });
+    // fake an API request
+    setTimeout(function () {
+      // when it returns
+      dispatch({
+        type: DATA_RECIEVED,
+        data: FakeData
+      });
+    }, 1000);
+  };
+};
+
+},{}],4:[function(require,module,exports){
+'use strict';
+
+var _actions = require('./actions.js');
+
+var Actions = _interopRequireWildcard(_actions);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var defaultState = {
+  posts: []
+};
+
+var dataReducer = function dataReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments[1];
+
+
+  switch (action.type) {
+    case Actions.DATA_RECIEVED:
+      return Object.assign({}, state, { posts: action.data });
+    default:
+      return state;
+  }
+};
+
+module.exports = dataReducer;
+
+},{"./actions.js":3}],5:[function(require,module,exports){
+'use strict';
+
+var _actions = require('./actions.js');
+
+var Actions = _interopRequireWildcard(_actions);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var defaultState = {
+  hasData: false,
+  isRequesting: false,
+  count: 0
+};
+
+var statusReducer = function statusReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments[1];
+
+
+  console.log(action, state);
+
+  // console.log(state,action);
+  switch (action.type) {
+    case Actions.MAKE_CHOICE:
+      return Object.assign({}, state, { count: ++state.count });
+    case Actions.DATA_REQUESTED:
+      return Object.assign({}, state, { isRequesting: true });
+    case Actions.DATA_RECIEVED:
+      return Object.assign({}, state, { isRequesting: false, hasData: true });
+    default:
+      return state;
+  }
+};
+
+module.exports = statusReducer;
+
+},{"./actions.js":3}],6:[function(require,module,exports){
+'use strict';
+
+var _history = require('history');
+
+var _redux = require('redux');
+
+var _connectedReactRouter = require('connected-react-router');
+
+var _reduxThunk = require('redux-thunk');
+
+var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+var _dataReducer = require('./dataReducer.js');
+
+var _dataReducer2 = _interopRequireDefault(_dataReducer);
+
+var _statusReducer = require('./statusReducer.js');
+
+var _statusReducer2 = _interopRequireDefault(_statusReducer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var history = (0, _history.createBrowserHistory)();
+
+var reducers = (0, _redux.combineReducers)({
+  data: _dataReducer2.default,
+  status: _statusReducer2.default
+  //, ...more reducers
+});
+
+var connectedReducers = (0, _connectedReactRouter.connectRouter)(history)(reducers);
+
+var middleware = (0, _redux.compose)((0, _redux.applyMiddleware)((0, _connectedReactRouter.routerMiddleware)(history), // for dispatching history actions
+_reduxThunk2.default // for ansychronous actions
+//, ... other middlewares ...
+));
+
+var initialState = {};
+
+var store = (0, _redux.createStore)(connectedReducers, initialState, middleware);
+
+module.exports = { history: history, store: store };
+
+},{"./dataReducer.js":4,"./statusReducer.js":5,"connected-react-router":13,"history":50,"redux":272,"redux-thunk":266}],7:[function(require,module,exports){
+'use strict';
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AboutPage = function AboutPage(_ref) {
+  var status = _ref.status,
+      onMakeChoice = _ref.onMakeChoice;
+
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'render-group' },
+    _react2.default.createElement(
+      'h1',
+      null,
+      'About Page'
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'choice-container' },
+      _react2.default.createElement(
+        'button',
+        { onClick: onMakeChoice },
+        'Make a Choice'
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'results' },
+      status.count
+    )
+  );
+};
+
+AboutPage.propTypes = {
+  onMakeChoice: _propTypes2.default.func.isRequired,
+  status: _propTypes2.default.array.isRequired
+};
+
+module.exports = AboutPage;
+
+},{"prop-types":69,"react":265}],8:[function(require,module,exports){
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BlogPage = function (_React$Component) {
+  _inherits(BlogPage, _React$Component);
+
+  function BlogPage() {
+    _classCallCheck(this, BlogPage);
+
+    return _possibleConstructorReturn(this, (BlogPage.__proto__ || Object.getPrototypeOf(BlogPage)).apply(this, arguments));
+  }
+
+  _createClass(BlogPage, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.onGetData();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          status = _props.status,
+          data = _props.data,
+          onMakeChoice = _props.onMakeChoice;
+
+
+      if (status.isRequesting) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'render-group' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            'requesting blog data'
+          )
+        );
+      }
+
+      if (status.hasData) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'render-group' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            'Blog Page'
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            data.posts.length,
+            ' blog articles'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'choice-container' },
+            _react2.default.createElement(
+              'button',
+              { onClick: onMakeChoice },
+              'Make a Choice'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'results' },
+            status.count
+          )
+        );
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'render-group' },
+        _react2.default.createElement(
+          'h1',
+          null,
+          'waiting for data request'
+        )
+      );
+    }
+  }]);
+
+  return BlogPage;
+}(_react2.default.Component);
+
+BlogPage.propTypes = {
+  onGetData: _propTypes2.default.func.isRequired,
+  onMakeChoice: _propTypes2.default.func.isRequired,
+  status: _propTypes2.default.object.isRequired,
+  data: _propTypes2.default.object.isRequired
+};
+
+module.exports = BlogPage;
+
+},{"prop-types":69,"react":265}],9:[function(require,module,exports){
+'use strict';
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var HomePage = function HomePage(_ref) {
+  var status = _ref.status,
+      onMakeChoice = _ref.onMakeChoice;
+
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'render-group' },
+    _react2.default.createElement(
+      'h1',
+      null,
+      'Home Page'
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'choice-container' },
+      _react2.default.createElement(
+        'button',
+        { onClick: onMakeChoice },
+        'Click Me!'
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'results' },
+      status.count
+    )
+  );
+};
+
+HomePage.propTypes = {
+  onMakeChoice: _propTypes2.default.func.isRequired,
+  status: _propTypes2.default.object.isRequired
+};
+
+module.exports = HomePage;
+
+},{"prop-types":69,"react":265}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4360,7 +4490,7 @@ var createLocation = exports.createLocation = function createLocation(path, stat
 var locationsAreEqual = exports.locationsAreEqual = function locationsAreEqual(a, b) {
   return a.pathname === b.pathname && a.search === b.search && a.hash === b.hash && a.key === b.key && (0, _valueEqual2.default)(a.state, b.state);
 };
-},{"./PathUtils":45,"resolve-pathname":273,"value-equal":277}],45:[function(require,module,exports){
+},{"./PathUtils":45,"resolve-pathname":274,"value-equal":278}],45:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -4730,7 +4860,7 @@ var createBrowserHistory = function createBrowserHistory() {
 };
 
 exports.default = createBrowserHistory;
-},{"./DOMUtils":43,"./LocationUtils":44,"./PathUtils":45,"./createTransitionManager":49,"invariant":52,"warning":278}],47:[function(require,module,exports){
+},{"./DOMUtils":43,"./LocationUtils":44,"./PathUtils":45,"./createTransitionManager":49,"invariant":52,"warning":279}],47:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5055,7 +5185,7 @@ var createHashHistory = function createHashHistory() {
 };
 
 exports.default = createHashHistory;
-},{"./DOMUtils":43,"./LocationUtils":44,"./PathUtils":45,"./createTransitionManager":49,"invariant":52,"warning":278}],48:[function(require,module,exports){
+},{"./DOMUtils":43,"./LocationUtils":44,"./PathUtils":45,"./createTransitionManager":49,"invariant":52,"warning":279}],48:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5226,7 +5356,7 @@ var createMemoryHistory = function createMemoryHistory() {
 };
 
 exports.default = createMemoryHistory;
-},{"./LocationUtils":44,"./PathUtils":45,"./createTransitionManager":49,"warning":278}],49:[function(require,module,exports){
+},{"./LocationUtils":44,"./PathUtils":45,"./createTransitionManager":49,"warning":279}],49:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5312,7 +5442,7 @@ var createTransitionManager = function createTransitionManager() {
 };
 
 exports.default = createTransitionManager;
-},{"warning":278}],50:[function(require,module,exports){
+},{"warning":279}],50:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -23311,7 +23441,7 @@ function whenMapDispatchToPropsIsObject(mapDispatchToProps) {
 }
 
 exports.default = [whenMapDispatchToPropsIsFunction, whenMapDispatchToPropsIsMissing, whenMapDispatchToPropsIsObject];
-},{"./wrapMapToProps":206,"redux":271}],202:[function(require,module,exports){
+},{"./wrapMapToProps":206,"redux":272}],202:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -24783,7 +24913,7 @@ Route.childContextTypes = {
   router: _propTypes2.default.object.isRequired
 };
 exports.default = Route;
-},{"./matchPath":236,"prop-types":69,"react":265,"warning":278}],232:[function(require,module,exports){
+},{"./matchPath":236,"prop-types":69,"react":265,"warning":279}],232:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -24903,7 +25033,7 @@ Router.childContextTypes = {
   router: _propTypes2.default.object.isRequired
 };
 exports.default = Router;
-},{"invariant":52,"prop-types":69,"react":265,"warning":278}],233:[function(require,module,exports){
+},{"invariant":52,"prop-types":69,"react":265,"warning":279}],233:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25169,7 +25299,7 @@ Switch.propTypes = {
   location: _propTypes2.default.object
 };
 exports.default = Switch;
-},{"./matchPath":236,"prop-types":69,"react":265,"warning":278}],235:[function(require,module,exports){
+},{"./matchPath":236,"prop-types":69,"react":265,"warning":279}],235:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -28019,6 +28149,30 @@ module.exports = require('./lib/React');
 'use strict';
 
 exports.__esModule = true;
+function createThunkMiddleware(extraArgument) {
+  return function (_ref) {
+    var dispatch = _ref.dispatch,
+        getState = _ref.getState;
+    return function (next) {
+      return function (action) {
+        if (typeof action === 'function') {
+          return action(dispatch, getState, extraArgument);
+        }
+
+        return next(action);
+      };
+    };
+  };
+}
+
+var thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+exports['default'] = thunk;
+},{}],267:[function(require,module,exports){
+'use strict';
+
+exports.__esModule = true;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -28074,7 +28228,7 @@ function applyMiddleware() {
     };
   };
 }
-},{"./compose":269}],267:[function(require,module,exports){
+},{"./compose":270}],268:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -28126,7 +28280,7 @@ function bindActionCreators(actionCreators, dispatch) {
   }
   return boundActionCreators;
 }
-},{}],268:[function(require,module,exports){
+},{}],269:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -28272,7 +28426,7 @@ function combineReducers(reducers) {
   };
 }
 }).call(this,require('_process'))
-},{"./createStore":270,"./utils/warning":272,"_process":64,"lodash/isPlainObject":62}],269:[function(require,module,exports){
+},{"./createStore":271,"./utils/warning":273,"_process":64,"lodash/isPlainObject":62}],270:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -28309,7 +28463,7 @@ function compose() {
     };
   });
 }
-},{}],270:[function(require,module,exports){
+},{}],271:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -28571,7 +28725,7 @@ var ActionTypes = exports.ActionTypes = {
     replaceReducer: replaceReducer
   }, _ref2[_symbolObservable2['default']] = observable, _ref2;
 }
-},{"lodash/isPlainObject":62,"symbol-observable":274}],271:[function(require,module,exports){
+},{"lodash/isPlainObject":62,"symbol-observable":275}],272:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -28620,7 +28774,7 @@ exports.bindActionCreators = _bindActionCreators2['default'];
 exports.applyMiddleware = _applyMiddleware2['default'];
 exports.compose = _compose2['default'];
 }).call(this,require('_process'))
-},{"./applyMiddleware":266,"./bindActionCreators":267,"./combineReducers":268,"./compose":269,"./createStore":270,"./utils/warning":272,"_process":64}],272:[function(require,module,exports){
+},{"./applyMiddleware":267,"./bindActionCreators":268,"./combineReducers":269,"./compose":270,"./createStore":271,"./utils/warning":273,"_process":64}],273:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -28646,7 +28800,7 @@ function warning(message) {
   } catch (e) {}
   /* eslint-enable no-empty */
 }
-},{}],273:[function(require,module,exports){
+},{}],274:[function(require,module,exports){
 'use strict';
 
 var isAbsolute = function isAbsolute(pathname) {
@@ -28717,10 +28871,10 @@ var resolvePathname = function resolvePathname(to) {
 };
 
 module.exports = resolvePathname;
-},{}],274:[function(require,module,exports){
+},{}],275:[function(require,module,exports){
 module.exports = require('./lib/index');
 
-},{"./lib/index":275}],275:[function(require,module,exports){
+},{"./lib/index":276}],276:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -28752,7 +28906,7 @@ if (typeof self !== 'undefined') {
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./ponyfill":276}],276:[function(require,module,exports){
+},{"./ponyfill":277}],277:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -28776,7 +28930,7 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
-},{}],277:[function(require,module,exports){
+},{}],278:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -28817,7 +28971,7 @@ var valueEqual = function valueEqual(a, b) {
 };
 
 exports.default = valueEqual;
-},{}],278:[function(require,module,exports){
+},{}],279:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -28881,4 +29035,4 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = warning;
 
 }).call(this,require('_process'))
-},{"_process":64}]},{},[2]);
+},{"_process":64}]},{},[1]);

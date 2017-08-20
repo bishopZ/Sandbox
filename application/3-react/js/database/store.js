@@ -2,13 +2,16 @@
 import { createBrowserHistory } from 'history';
 import { applyMiddleware, compose, createStore, combineReducers } from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
+import thunk from 'redux-thunk';
 
-import { choiceReducer } from './reducers.js';
+import dataReducer from './dataReducer.js';
+import statusReducer from './statusReducer.js';
 
 const history = createBrowserHistory();
 
 const reducers = combineReducers({
-  choices: choiceReducer
+  data: dataReducer,
+  status: statusReducer
   //, ...more reducers
 });
 
@@ -16,12 +19,13 @@ const connectedReducers = connectRouter(history)(reducers);
 
 const middleware = compose(
   applyMiddleware(
-    routerMiddleware(history) // for dispatching history actions
+    routerMiddleware(history), // for dispatching history actions
+    thunk // for ansychronous actions
     //, ... other middlewares ...
   )
 );
 
-const initialState = {choices: []};
+const initialState = {};
 
 const store = createStore(connectedReducers, initialState, middleware);
 

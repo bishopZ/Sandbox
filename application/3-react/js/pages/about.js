@@ -2,22 +2,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-var BlogPage = ({ choices, onMakeChoice }) => {
+var AboutPage = ({ status, onMakeChoice }) => {
 
   return (
     <div className="render-group">
-      <h1>Blog Page</h1>
+      <h1>About Page</h1>
       <div className="choice-container">
         <button onClick={onMakeChoice}>Make a Choice</button>
       </div>
-      <div className="results">{choices.length}</div>
+      <div className="results">{status.count}</div>
     </div>
   );
 };
 
-BlogPage.propTypes = {
+AboutPage.propTypes = {
   onMakeChoice: PropTypes.func.isRequired,
-  choices: PropTypes.array.isRequired
+  status: PropTypes.array.isRequired
 };
 
-module.exports = BlogPage;
+module.exports = AboutPage;
