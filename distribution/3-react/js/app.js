@@ -320,7 +320,7 @@ var AboutPage = function AboutPage(_ref) {
 
 AboutPage.propTypes = {
   onMakeChoice: _propTypes2.default.func.isRequired,
-  status: _propTypes2.default.array.isRequired
+  status: _propTypes2.default.object.isRequired
 };
 
 module.exports = AboutPage;

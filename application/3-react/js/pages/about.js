@@ -17,7 +17,7 @@ var AboutPage = ({ status, onMakeChoice }) => {
 
 AboutPage.propTypes = {
   onMakeChoice: PropTypes.func.isRequired,
-  status: PropTypes.array.isRequired
+  status: PropTypes.object.isRequired
 };
 
 module.exports = AboutPage;
