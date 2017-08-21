@@ -1,4 +1,6 @@
 
+var request = require('superagent');
+
 // Example of storing data in the status property
 var nextId = 0;
 
@@ -8,24 +10,23 @@ export const onMakeChoice = () => ({
   id: nextId++
 });
 
-
-// Simulate requesting API data
-const FakeData = [{}, {}, {}];
-
+// Example of accessing the API
 export const DATA_REQUESTED = 'DATA_REQUESTED';
 export const DATA_RECIEVED = 'DATA_RECIEVED';
 export const onGetData = () => {
-  return (dispatch) => {
+  return (dispatch) => { // dispatch provided by thunk middleware
     dispatch({
       type: DATA_REQUESTED
     });
-    // fake an API request
-    setTimeout(()=>{
-      // when it returns
-      dispatch({
-        type: DATA_RECIEVED,
-        data: FakeData
+    // send the API request
+    request
+      .get('/api/v1/articles')
+      .set('X-API-Key', 'foobar')
+      .end(function(error, response){
+        dispatch({
+          type: DATA_RECIEVED,
+          data: response.body
+        });
       });
-    }, 1000);
   };
 };

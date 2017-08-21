@@ -4,6 +4,7 @@
 const express = require('express');
 const http = require('http');
 
+const routes = require('./api-v1.js');
 const server = express();
 
 // Development Server Options
@@ -22,6 +23,9 @@ if (isDev) {
 }
 
 // Production Server Options
+
+// create API routes
+routes.createRoutes(server);
 
 // static paths for the rest
 server.get('/', express.static('./distribution/1-simple'));

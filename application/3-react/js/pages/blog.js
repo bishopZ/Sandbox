@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 
 class BlogPage extends React.Component {
   componentWillMount(){
-    this.props.onGetData();
+    if (!this.props.status.hasData) {
+      this.props.onGetData();
+    }
   }
   render(){
 
@@ -19,10 +21,14 @@ class BlogPage extends React.Component {
     }
 
     if (status.hasData) {
+      var titles = data.articles.map((article, id)=>{
+        return <h3 key={id}>{article.title}</h3>;
+      });
       return (
         <div className="render-group">
           <h1>Blog Page</h1>
-          <p>{data.posts.length} blog articles</p>
+          {titles}
+          <p>{data.articles.length} blog articles</p>
           <div className="choice-container">
             <button onClick={onMakeChoice}>Make a Choice</button>
           </div>
