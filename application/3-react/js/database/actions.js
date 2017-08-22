@@ -1,7 +1,7 @@
 
 var request = require('superagent');
 
-// Example of storing data in the status property
+// Example of storing state data in the actions
 var nextId = 0;
 
 export const MAKE_CHOICE = 'MAKE_CHOICE';
@@ -22,7 +22,8 @@ export const onGetData = () => {
     request
       .get('/api/v1/articles')
       .set('X-API-Key', 'foobar')
-      .end(function(error, response){
+      .end((error, response) => {
+        // TODO: onError
         dispatch({
           type: DATA_RECIEVED,
           data: response.body

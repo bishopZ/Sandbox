@@ -12,7 +12,7 @@
   "private": false,
   "scripts": {
     "start": "node server/server.js",
-    "dev": "gulp"
+    "dev": "killall node || true && gulp"
   },
   "main": "server/server.js",
   "author": "BishopZ",
