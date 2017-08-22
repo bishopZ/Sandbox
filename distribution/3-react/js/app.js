@@ -136,7 +136,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var request = require('superagent');
 
-// Example of storing data in the status property
+// Example of storing state data in the actions
 var nextId = 0;
 
 var MAKE_CHOICE = exports.MAKE_CHOICE = 'MAKE_CHOICE';
@@ -158,6 +158,7 @@ var onGetData = exports.onGetData = function onGetData() {
     });
     // send the API request
     request.get('/api/v1/articles').set('X-API-Key', 'foobar').end(function (error, response) {
+      // TODO: onError
       dispatch({
         type: DATA_RECIEVED,
         data: response.body
@@ -307,7 +308,7 @@ var AboutPage = function AboutPage(_ref) {
       _react2.default.createElement(
         'button',
         { onClick: onMakeChoice },
-        'Make a Choice'
+        'Click Me!'
       )
     ),
     _react2.default.createElement(
@@ -412,7 +413,7 @@ var BlogPage = function (_React$Component) {
             _react2.default.createElement(
               'button',
               { onClick: onMakeChoice },
-              'Make a Choice'
+              'Click Me!'
             )
           ),
           _react2.default.createElement(

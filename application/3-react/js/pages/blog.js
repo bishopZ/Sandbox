@@ -30,7 +30,7 @@ class BlogPage extends React.Component {
           {titles}
           <p>{data.articles.length} blog articles</p>
           <div className="choice-container">
-            <button onClick={onMakeChoice}>Make a Choice</button>
+            <button onClick={onMakeChoice}>Click Me!</button>
           </div>
           <div className="results">{status.count}</div>
         </div>

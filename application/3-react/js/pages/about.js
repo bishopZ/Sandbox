@@ -8,7 +8,7 @@ var AboutPage = ({ status, onMakeChoice }) => {
     <div className="render-group">
       <h1>About Page</h1>
       <div className="choice-container">
-        <button onClick={onMakeChoice}>Make a Choice</button>
+        <button onClick={onMakeChoice}>Click Me!</button>
       </div>
       <div className="results">{status.count}</div>
     </div>
