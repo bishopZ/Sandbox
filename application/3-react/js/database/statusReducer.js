@@ -1,4 +1,5 @@
 
+import _ from 'lodash';
 import * as Actions from './actions.js';
 
 const defaultState = {
@@ -11,8 +12,10 @@ const statusReducer = (state = defaultState, action) => {
 
   console.log(action, state);
 
-  // console.log(state,action);
   switch (action.type) { 
+  case '@@router/LOCATION_CHANGE':
+    _.defer(()=>{window.scrollTo(0, 0);});
+    return state;
   case Actions.MAKE_CHOICE:
     return Object.assign({}, state, { count: ++state.count });
   case Actions.DATA_REQUESTED:
