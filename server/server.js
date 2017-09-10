@@ -3,6 +3,9 @@
 
 const express = require('express');
 const http = require('http');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 
 const routes = require('./api-v1.js');
 const server = express();
@@ -23,6 +26,18 @@ if (isDev) {
 }
 
 // Production Server Options
+
+// Parse POST data
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+// Create Session
+server.use(session({
+  store: new FileStore({}),
+  resave: true,
+  saveUninitialized: true,
+  secret: 'your-secret-id'
+}));
 
 // create API routes
 routes.createRoutes(server);

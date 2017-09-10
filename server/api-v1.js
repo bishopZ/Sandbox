@@ -1,24 +1,10 @@
 
-const bodyParser = require('body-parser');
-var session = require('express-session');
-var FileStore = require('session-file-store')(session);
-
 const articles = require('./fakeData.js');
 
 const api = {
   createRoutes: (server) => {
 
-    // Parse POST data
-    server.use(bodyParser.json());
-    server.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-
-    // Create Session
-    server.use(session({
-      store: new FileStore({}),
-      resave: true,
-      saveUninitialized: true,
-      secret: 'your-secret-id'
-    }));
+    
 
     // API Routes
     server.post('/api/v1/login', api.loginUser);
