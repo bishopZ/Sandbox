@@ -17,6 +17,7 @@ const libs = {
 
 // Each item in the arrays is a base name of a Gulp Task
 const builds = {
+  static: [ 'static' ],
   html: [ 'copy-html' ],
   simple: [ 'ejs', 'js-babel', 'sass', 'images', 'fonts' ],
   imports: [ 'ejs', 'js-babel-imports', 'sass', 'images', 'fonts' ],

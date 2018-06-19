@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class BlogPage extends React.Component {
-  componentWillMount(){
+  componentDidMount(){
     if (!this.props.status.hasData) {
       this.props.onGetData();
     }
