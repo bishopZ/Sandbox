@@ -33,9 +33,10 @@ gulp.task('lint', () => {
 
 
 var sourcePatterns = {
-  htmlFlat: '/*.html' ,
-  html: '/**/*.html' ,
-  images: '/**/*.{gif,jpg,jpeg,png}',
+  all: '/**/*',
+  htmlFlat: '/*.html',
+  html: '/**/*.html',
+  images: '/**/*.{gif,jpg,jpeg,png,svg}',
   fonts: '/**/*.{eot,svg,ttf,woff,woff2}',
   sass: '/**/*.{scss,sass,css}',
   js: '/**/*.{js,jsx}'
@@ -43,6 +44,17 @@ var sourcePatterns = {
 
 var taskList = [
   {
+    shortName: 'static',
+    sourcePattern: ['all'], // string, or array of strings
+    create: (sources, config) => {
+      return () => {
+        return gulp.src(sources)
+          .pipe(plugins.plumber())
+          .pipe(gulp.dest(paths.dist + config.path))
+          .pipe(server.notify.apply(server));
+      }
+    }
+  },{
     shortName: 'copy-html',
     sourcePattern: ['htmlFlat'], // string, or array of strings
     create: (sources, config) => {
@@ -116,7 +128,7 @@ var taskList = [
           .pipe(plugins.plumber())
           .pipe(plugins.concat(config.destination))
           .pipe(gulp.dest(paths.dist + config.path))
-          .pipe(babel({ 
+          .pipe(babel({
             presets: ['es2015'],
             babelrc: false
           }))
@@ -131,7 +143,7 @@ var taskList = [
     create: (sources, config) => {
       return () => {
         // default entry point
-        var entryPoints = config.entryPoints || [ 'app.js' ]; 
+        var entryPoints = config.entryPoints || [ 'app.js' ];
         entryPoints = _.map(entryPoints, (entry) => { return paths.app + config.path +'/'+ entry; });
         _.each(entryPoints, (entry) => {
           const destination = entry.split(config.path +'/')[1]; // get the filename from the full path
@@ -154,7 +166,7 @@ var taskList = [
     create: (sources, config) => {
       return () => {
         // default entry point
-        var entryPoints = config.entryPoints || [ 'app.js' ]; 
+        var entryPoints = config.entryPoints || [ 'app.js' ];
         entryPoints = _.map(entryPoints, (entry) => { return paths.app + config.path +'/'+ entry; });
         _.each(entryPoints, (entry) => {
           const destination = entry.split(config.path +'/')[1]; // get the filename from the full path
