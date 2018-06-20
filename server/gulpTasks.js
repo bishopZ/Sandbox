@@ -24,12 +24,10 @@ gulp.task('clean', () => {
   return del([paths.dist]);
 });
 
-pages.forEach((page)=>{
-  gulp.task('lint', () => {
-    return gulp.src([page.path + '**/*.{js,jsx}'])
-      .pipe(eslint())
-      .pipe(eslint.format());
-  });
+gulp.task('lint', () => {
+  return gulp.src(['**/*.{js,jsx}'])
+    .pipe(eslint())
+    .pipe(eslint.format());
 });
 
 
