@@ -14,7 +14,7 @@ const source = require('vinyl-source-stream');
 
 const server = gls('./server/server.js');
 
-const {paths} = require('./gulpConfiguration.js');
+const {pages, paths} = require('./gulpConfiguration.js');
 
 gulp.task('server', () => {
   server.start();
@@ -24,10 +24,12 @@ gulp.task('clean', () => {
   return del([paths.dist]);
 });
 
-gulp.task('lint', () => {
-  return gulp.src([paths.app + '**/*.{js,jsx}'])
-    .pipe(eslint())
-    .pipe(eslint.format());
+pages.forEach((page)=>{
+  gulp.task('lint', () => {
+    return gulp.src([page.path + '**/*.{js,jsx}'])
+      .pipe(eslint())
+      .pipe(eslint.format());
+  });
 });
 
 
