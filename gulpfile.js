@@ -62,7 +62,7 @@ var fullTaskList = _.map(pages, (page) => {
       const taskData = _.find(taskList, (task) => { return task.shortName === buildTaskName});
       taskData.sourcePattern.forEach((pattern) => {
         // watch the task
-        gulp.watch(makePatternPath(pattern, page), [makeTaskLongName(taskData.shortName, page), 'lint']);
+        gulp.watch(makePatternPath(pattern, page), [makeTaskLongName(taskData.shortName, page), 'lint-' + page.path]);
       });
     });
     return makeTaskLongName('watch:' + buildTaskName, page);
