@@ -38,7 +38,7 @@ var fullTaskList = _.map(pages, (page) => {
 
       // prepend the project path & get source pattern
       const taskSources = _.map(taskData.sourcePattern, (pattern) => { return makePatternPath(pattern, page); });
-      
+
       // prepend the project sources
       const combinedSources = projectSources.concat(taskSources);
 
@@ -52,7 +52,7 @@ var fullTaskList = _.map(pages, (page) => {
 
       // create the task
       gulp.task(makeTaskLongName(taskData.shortName, page), taskRunner);
-     
+
     }
   });
 
@@ -62,30 +62,39 @@ var fullTaskList = _.map(pages, (page) => {
       const taskData = _.find(taskList, (task) => { return task.shortName === buildTaskName});
       taskData.sourcePattern.forEach((pattern) => {
         // watch the task
-        gulp.watch(makePatternPath(pattern, page), [makeTaskLongName(taskData.shortName, page), 'lint']);
-      });        
+        gulp.watch(makePatternPath(pattern, page), [makeTaskLongName(taskData.shortName, page), 'lint-' + page.path]);
+      });
     });
     return makeTaskLongName('watch:' + buildTaskName, page);
   });
-  gulp.task(makeTaskLongName('watch-all', page), watchTasks); 
+  gulp.task(makeTaskLongName('watch-all', page), watchTasks);
 
   // create a combined build map
   const buildMap = _.map(page.build, (itemName) => { return makeTaskLongName(itemName, page); });
   gulp.task(makeTaskLongName('build-all', page), buildMap);
 
   // return a combined task of the build map and the watch map
-  return [ 
+  return [
     makeTaskLongName('build-all', page),
-    makeTaskLongName('watch-all', page) 
+    makeTaskLongName('watch-all', page)
   ];
 
 });
+
+// prepend the base tasks
+fullTaskList.unshift('clean');
+pages.forEach((page)=>{
+  if (page.lint !== false) {
+    fullTaskList.unshift('lint-' + page.path);
+  }
+});
+fullTaskList.unshift('server');
 
 // smooth out the full list of tasks
 fullTaskList = _.flatten(fullTaskList);
 
 // define the default task
-gulp.task('default', ['clean', 'lint', 'server'], (cb) => {
+gulp.task('default', (cb) => {
   fullTaskList.push(cb);
   sequence.apply(this, fullTaskList);
 });

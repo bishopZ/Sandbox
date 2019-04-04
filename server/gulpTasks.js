@@ -14,24 +14,9 @@ const source = require('vinyl-source-stream');
 
 const server = gls('./server/server.js');
 
-const {paths} = require('./gulpConfiguration.js');
+const {pages, paths} = require('./gulpConfiguration.js');
 
-gulp.task('server', () => {
-  server.start();
-});
-
-gulp.task('clean', () => {
-  return del([paths.dist]);
-});
-
-gulp.task('lint', () => {
-  return gulp.src([paths.app + '**/*.{js,jsx}'])
-    .pipe(eslint())
-    .pipe(eslint.format());
-});
-
-
-
+// search patterns
 var sourcePatterns = {
   all: '/**/*',
   htmlFlat: '/*.html',
@@ -42,6 +27,27 @@ var sourcePatterns = {
   js: '/**/*.{js,jsx}'
 };
 
+// base tasks
+gulp.task('server', () => {
+  server.start();
+});
+
+gulp.task('clean', () => {
+  return del([paths.dist]);
+});
+
+pages.forEach((page)=>{
+  if (page.lint !== false) {
+    gulp.task('lint-' + page.path, () => {
+      return gulp.src([paths.app + page.path + sourcePatterns.js])
+        .pipe(eslint())
+        .pipe(eslint.format());
+    });
+  }
+});
+
+
+// main task list
 var taskList = [
   {
     shortName: 'static',

@@ -31,7 +31,8 @@ const pages = [
     data: { msg: "Hello from Gulp Config!" }, // for ejs templates
     js: [ libs.jquery, libs.bootstrapjs ], // string, or array of strings
     sass: libs.bootstrapcss, // string, or array of strings
-    fonts: [ libs.fontawesome, libs.bootstrapfonts ] // string, or array of strings
+    fonts: [ libs.fontawesome, libs.bootstrapfonts ], // string, or array of strings
+    lint: false // turn off linting for this folder
   },{
     path: '2-imports',
     build: builds.imports,
